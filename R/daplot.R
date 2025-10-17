@@ -1,4 +1,7 @@
-#' Title
+#' Create a dual axis plot using ggplot2
+#'
+#' Creates a ggplot2 plot with two y axes. The second y axis is scaled to match
+#' the range of the first y axis.
 #'
 #' @param dat input data frame
 #' @param x_val a column name in dat for x axis.

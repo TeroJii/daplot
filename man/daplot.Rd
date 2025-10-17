@@ -2,7 +2,7 @@
 % Please edit documentation in R/daplot.R
 \name{daplot}
 \alias{daplot}
-\title{Title}
+\title{Create a dual axis plot using ggplot2}
 \usage{
 daplot(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
 }
@@ -25,7 +25,8 @@ used if not provided.}
 returns a ggplot object
 }
 \description{
-Title
+Creates a ggplot2 plot with two y axes. The second y axis is scaled to match
+the range of the first y axis.
 }
 \examples{
 mtcars |> daplot(mpg, wt, qsec)
