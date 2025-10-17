@@ -1,11 +1,18 @@
 #' Title
 #'
 #' @param dat input data frame
-#'
-#' @returns returns a data frame
+#' @param x_val a column name in dat for x axis.
+#' @param y1_val a column name in dat for y1 axis.
+#' @param y2_val a column name in dat for y2 axis.
+#' @param y1_label an optional label for y1 axis. The column name for y1_val is
+#' used if not provided.
+#' @param y2_label an optional label for y2 axis. The column name for y2_val is
+#' used if not provided.
+#' @returns returns a ggplot object
 #' @export
 #'
 #' @examples
+#' mtcars |> daplot(mpg, wt, qsec)
 daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL) {
   stopifnot(is.data.frame(dat))
 
