@@ -20,12 +20,35 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
   y2q <- rlang::enquo(y2_val)
   verify_columns(dat, xq, y1q, y2q)
 
-  plot_dat <- dat
+  # get the minimum and maximum of y1 and y2
+  y1_min <- min(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
+  y1_max <- max(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
+  y2_min <- min(dat[[rlang::as_name(rlang::enquo(y2_val))]], na.rm = TRUE)
+  y2_max <- max(dat[[rlang::as_name(rlang::enquo(y2_val))]], na.rm = TRUE)
+
+  # Create transformation functions
+  scale_factor <- (y1_max - y1_min) / (y2_max - y2_min)
+
+
+  plot_dat <- dat |>
+    dplyr::mutate(
+      scaled_y2 = (({{y2_val}} - y2_min) * scale_factor) + y1_min
+    )
 
   pl <- plot_dat |>
     ggplot2::ggplot(ggplot2::aes(x = {{ x_val }})) +
     ggplot2::geom_line(ggplot2::aes(y = {{ y1_val }}, color = "y1")) +
-    ggplot2::geom_line(ggplot2::aes(y = {{ y2_val }}, color = "y2"))
+    ggplot2::geom_line(ggplot2::aes(y = scaled_y2, color = "y2")) +
+    ggplot2::scale_y_continuous(
+      # Features of the first axis
+      name = "y1",
+      # Add a second axis and specify its features
+      sec.axis = ggplot2::sec_axis(
+        # inverse transformation of values for secondary y-axis
+        ~ (. - y1_min)/scale_factor + y2_min,
+        name = "y2"
+      )
+    )
 
   return(pl)
 }
@@ -48,3 +71,7 @@ verify_columns <- function(dat, xq, y1q, y2q){
     stop(glue::glue("Column `{y2_col}` not found in `dat`."))
   }
 }
+
+
+# Suppress undefined global variable notes
+scaled_y2 <- NULL
