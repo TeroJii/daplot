@@ -17,3 +17,5 @@ Imports:
     ggplot2,
     glue,
     rlang
+Depends: 
+    R (>= 4.1)
