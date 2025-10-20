@@ -30,7 +30,7 @@ This is a basic example which shows you how to solve a common problem:
 library(daplot)
 
 mtcars |> 
-  daplot(mpg, wt, qsec)
+  daplot(mpg, wt, qsec, y1_label = "test label")
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
