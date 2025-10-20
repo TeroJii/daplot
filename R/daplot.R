@@ -49,8 +49,8 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
 
   pl <- plot_dat |>
     ggplot2::ggplot(ggplot2::aes(x = {{ x_val }})) +
-    ggplot2::geom_line(ggplot2::aes(y = {{ y1_val }}, color = "y1")) +
-    ggplot2::geom_line(ggplot2::aes(y = scaled_y2, color = "y2")) +
+    ggplot2::geom_line(ggplot2::aes(y = {{ y1_val }}, color = y1_label)) +
+    ggplot2::geom_line(ggplot2::aes(y = scaled_y2, color = y2_label)) +
     ggplot2::scale_y_continuous(
       # Features of the first axis
       name = y1_label,
@@ -60,7 +60,8 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
         ~ (. - y1_min)/scale_factor + y2_min,
         name = y2_label
       )
-    )
+    ) +
+    ggplot2::labs(color = "")
 
   return(pl)
 }
