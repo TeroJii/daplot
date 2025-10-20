@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' mtcars |> daplot(mpg, wt, qsec)
-daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL) {
+daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL, y1_geom = ggplot2::geom_line, y2_geom = NULL, ...) {
   stopifnot(is.data.frame(dat))
   xq <- rlang::enquo(x_val)
   y1q <- rlang::enquo(y1_val)
@@ -29,6 +29,10 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
   }
   if(is.null(y2_label)){
     y2_label <- rlang::as_name(rlang::enquo(y2_val))
+  }
+
+  if(is.null(y2_geom)){
+    y2_geom <- y1_geom
   }
 
 
@@ -49,8 +53,8 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
 
   pl <- plot_dat |>
     ggplot2::ggplot(ggplot2::aes(x = {{ x_val }})) +
-    ggplot2::geom_line(ggplot2::aes(y = {{ y1_val }}, color = y1_label)) +
-    ggplot2::geom_line(ggplot2::aes(y = scaled_y2, color = y2_label)) +
+    y1_geom(ggplot2::aes(y = {{ y1_val }}, color = y1_label, fill = y1_label)) +
+    y2_geom(ggplot2::aes(y = scaled_y2, color = y2_label, fill = y2_label)) +
     ggplot2::scale_y_continuous(
       # Features of the first axis
       name = y1_label,
@@ -61,7 +65,7 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
         name = y2_label
       )
     ) +
-    ggplot2::labs(color = "")
+    ggplot2::labs(color = "", fill = "")
 
   return(pl)
 }
