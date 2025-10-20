@@ -23,6 +23,15 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
   y2q <- rlang::enquo(y2_val)
   verify_columns(dat, xq, y1q, y2q)
 
+  # y-labels
+  if(is.null(y1_label)){
+    y1_label <- rlang::as_name(rlang::enquo(y1_val))
+  }
+  if(is.null(y2_label)){
+    y2_label <- rlang::as_name(rlang::enquo(y2_val))
+  }
+
+
   # get the minimum and maximum of y1 and y2
   y1_min <- min(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
   y1_max <- max(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
@@ -44,12 +53,12 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
     ggplot2::geom_line(ggplot2::aes(y = scaled_y2, color = "y2")) +
     ggplot2::scale_y_continuous(
       # Features of the first axis
-      name = "y1",
+      name = y1_label,
       # Add a second axis and specify its features
       sec.axis = ggplot2::sec_axis(
         # inverse transformation of values for secondary y-axis
         ~ (. - y1_min)/scale_factor + y2_min,
-        name = "y2"
+        name = y2_label
       )
     )
 
