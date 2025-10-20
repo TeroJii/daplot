@@ -36,21 +36,10 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(daplot)
-## basic example code
+
+mtcars |> 
+  daplot(mpg, wt, qsec, y1_label = "test label")
 ```
 
 
-```{r cars}
-cars |> 
-  daplot::daplot()
-```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = TRUE}
-# empty placeholder
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

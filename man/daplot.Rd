@@ -2,16 +2,32 @@
 % Please edit documentation in R/daplot.R
 \name{daplot}
 \alias{daplot}
-\title{Title}
+\title{Create a dual axis plot using ggplot2}
 \usage{
-daplot(dat)
+daplot(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
 }
 \arguments{
 \item{dat}{input data frame}
+
+\item{x_val}{a column name in dat for x axis.}
+
+\item{y1_val}{a column name in dat for y1 axis.}
+
+\item{y2_val}{a column name in dat for y2 axis.}
+
+\item{y1_label}{an optional label for y1 axis. The column name for y1_val is
+used if not provided.}
+
+\item{y2_label}{an optional label for y2 axis. The column name for y2_val is
+used if not provided.}
 }
 \value{
-returns a data frame
+returns a ggplot object
 }
 \description{
-Title
+Creates a ggplot2 plot with two y axes. The second y axis is scaled to match
+the range of the first y axis.
+}
+\examples{
+mtcars |> daplot(mpg, wt, qsec)
 }

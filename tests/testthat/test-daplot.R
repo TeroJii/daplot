@@ -1,3 +1,6 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("incorrect column names return error", {
+  expect_error(
+    daplot(mtcars, mpg, wt, nonexistent_column),
+    "Column `nonexistent_column` not found in `dat`."
+  )
 })
