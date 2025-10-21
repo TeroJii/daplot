@@ -98,7 +98,15 @@ data.frame(
   sales = c(100, 120, 150, 130, 170, 160, 180, 200, 220, 210, 230),
   profit = c(10, 15, 20, 18, 25, 22, 30, 35, 40, 38, 45)
 ) |> 
-  daplot(year, sales, profit, y1_geom = ggplot2::geom_col, y2_geom = ggplot2::geom_line, y1_label = "Sales (1000 €)", y2_label = "Profit (1000 €)")
+  daplot(
+    year, 
+    sales, 
+    profit, 
+    y1_geom = ggplot2::geom_col, 
+    y2_geom = ggplot2::geom_line, 
+    y1_label = "Sales (1000 €)", 
+    y2_label = "Profit (1000 €)"
+  )
 ```
 
 <img src="man/figures/README-bar-plot-1.png" width="100%" />
