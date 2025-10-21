@@ -1,4 +1,4 @@
 url: https://terojii.github.io/daplot/
 template:
   bootstrap: 5
-
+  bootswatch: flatly
