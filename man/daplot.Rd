@@ -4,7 +4,18 @@
 \alias{daplot}
 \title{Create a dual axis plot using ggplot2}
 \usage{
-daplot(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL)
+daplot(
+  dat,
+  x_val,
+  y1_val,
+  y2_val,
+  y1_label = NULL,
+  y2_label = NULL,
+  y1_geom = ggplot2::geom_line,
+  y2_geom = NULL,
+  silent = TRUE,
+  ...
+)
 }
 \arguments{
 \item{dat}{input data frame}
@@ -20,6 +31,14 @@ used if not provided.}
 
 \item{y2_label}{an optional label for y2 axis. The column name for y2_val is
 used if not provided.}
+
+\item{y1_geom}{a ggplot2 geom function for y1 axis. Default is ggplot2::geom_line.}
+
+\item{y2_geom}{a ggplot2 geom function for y2 axis. Default is NULL, which uses the same geom as y1_geom.}
+
+\item{silent}{logical, if TRUE suppresses warnings during plot creation. Default is TRUE.}
+
+\item{...}{additional arguments passed to the geom functions.}
 }
 \value{
 returns a ggplot object
