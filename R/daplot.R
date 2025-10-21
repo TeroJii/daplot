@@ -4,12 +4,12 @@
 #' the range of the first y axis.
 #'
 #' @param dat input data frame
-#' @param x_val a column name in dat for x axis.
-#' @param y1_val a column name in dat for y1 axis.
-#' @param y2_val a column name in dat for y2 axis.
-#' @param y1_label an optional label for y1 axis. The column name for y1_val is
+#' @param x_col a column name in dat for x axis.
+#' @param y1 a column name in dat for y1 axis.
+#' @param y2 a column name in dat for y2 axis.
+#' @param y1_label an optional label for y1 axis. The column name for y1 is
 #' used if not provided.
-#' @param y2_label an optional label for y2 axis. The column name for y2_val is
+#' @param y2_label an optional label for y2 axis. The column name for y2 is
 #' used if not provided.
 #' @param y1_geom a ggplot2 geom function for y1 axis. Default is ggplot2::geom_line.
 #' @param y2_geom a ggplot2 geom function for y2 axis. Default is NULL, which uses the same geom as y1_geom.
@@ -20,19 +20,19 @@
 #'
 #' @examples
 #' mtcars |> daplot(mpg, wt, qsec)
-daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL, y1_geom = ggplot2::geom_line, y2_geom = NULL, silent = TRUE, ...) {
+daplot <- function(dat, x_col, y1, y2, y1_label = NULL, y2_label = NULL, y1_geom = ggplot2::geom_line, y2_geom = NULL, silent = TRUE, ...) {
   stopifnot(is.data.frame(dat))
-  xq <- rlang::enquo(x_val)
-  y1q <- rlang::enquo(y1_val)
-  y2q <- rlang::enquo(y2_val)
+  xq <- rlang::enquo(x_col)
+  y1q <- rlang::enquo(y1)
+  y2q <- rlang::enquo(y2)
   verify_columns(dat, xq, y1q, y2q)
 
   # y-labels
   if(is.null(y1_label)){
-    y1_label <- rlang::as_name(rlang::enquo(y1_val))
+    y1_label <- rlang::as_name(rlang::enquo(y1))
   }
   if(is.null(y2_label)){
-    y2_label <- rlang::as_name(rlang::enquo(y2_val))
+    y2_label <- rlang::as_name(rlang::enquo(y2))
   }
 
   if(is.null(y2_geom)){
@@ -47,10 +47,10 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL,
   }
 
   # get the minimum and maximum of y1 and y2
-  y1_min <- min(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
-  y1_max <- max(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
-  y2_min <- min(dat[[rlang::as_name(rlang::enquo(y2_val))]], na.rm = TRUE)
-  y2_max <- max(dat[[rlang::as_name(rlang::enquo(y2_val))]], na.rm = TRUE)
+  y1_min <- min(dat[[rlang::as_name(rlang::enquo(y1))]], na.rm = TRUE)
+  y1_max <- max(dat[[rlang::as_name(rlang::enquo(y1))]], na.rm = TRUE)
+  y2_min <- min(dat[[rlang::as_name(rlang::enquo(y2))]], na.rm = TRUE)
+  y2_max <- max(dat[[rlang::as_name(rlang::enquo(y2))]], na.rm = TRUE)
 
   # Create transformation functions
   scale_factor <- (y1_max - y1_min) / (y2_max - y2_min)
@@ -58,12 +58,12 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL,
 
   plot_dat <- dat |>
     dplyr::mutate(
-      scaled_y2 = (({{y2_val}} - y2_min) * scale_factor) + y1_min
+      scaled_y2 = (({{y2}} - y2_min) * scale_factor) + y1_min
     )
 
   pl <- plot_dat |>
-    ggplot2::ggplot(ggplot2::aes(x = {{ x_val }})) +
-    y1_geom(ggplot2::aes(y = {{ y1_val }}, color = y1_label, fill = y1_label)) +
+    ggplot2::ggplot(ggplot2::aes(x = {{ x_col }})) +
+    y1_geom(ggplot2::aes(y = {{ y1 }}, color = y1_label, fill = y1_label)) +
     y2_geom(ggplot2::aes(y = scaled_y2, color = y2_label, fill = y2_label)) +
     ggplot2::scale_y_continuous(
       # Features of the first axis
