@@ -18,9 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/TeroJii/daplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TeroJii/daplot/actions/workflows/R-CMD-check.yaml)
-<!--
 ![GitHub Release](https://img.shields.io/github/v/release/TeroJii/daplot)
--->
 <!-- badges: end -->
 
 The goal of daplot is to provide a simplified interface for creating a plot with a dual axis in ggplot2.
