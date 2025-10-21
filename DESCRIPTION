@@ -20,4 +20,5 @@ Imports:
     withr
 Depends: 
     R (>= 4.1)
-URL: https://terojii.github.io/daplot/
+URL: https://terojii.github.io/daplot/, https://github.com/TeroJii/daplot
+BugReports: https://github.com/TeroJii/daplot/issues
