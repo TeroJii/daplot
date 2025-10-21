@@ -33,7 +33,7 @@ pak::pak("TeroJii/daplot")
 
 ## Motivation
 
-The package [ggplot2](https://ggplot2.tidyverse.org/) provides an incredibly rich and extensive functionality for creating a variety of plots.
+The [ggplot2](https://ggplot2.tidyverse.org/) package provides an incredibly rich and extensive functionality for creating a huge variety of plots.
 Let's take the following visualization as an example:
 
 ```{r ggplot-example}
@@ -49,7 +49,7 @@ mtcars |>
   )
 ```
 
-This produces an elegant visualization. However, in some cases we might want to compare two variables with different scales more easily. This requires scaling of one of the variables to fit the scale of the other variable. This is possible with ggplot2, but it requires some additional steps and calculations. This is where the `daplot` function comes in handy. It provides a simplified interface for creating dual-axis plots without the need for manual scaling.
+This produces an elegant visualization which allows us to compare two variables as a function of a third one. However, as we can see, the magnitude of the variables in absolute units is quite different. In some cases we might want to compare two variables with different scales more easily. This requires scaling of one of the variables to fit the scale of the other variable. This is possible with ggplot2, but it requires some additional steps and calculations. This is where the `daplot` function comes in handy. It provides a simplified interface for creating dual-axis plots without the need for manual scaling.
 
 ```{r example}
 library(daplot)
@@ -58,5 +58,18 @@ mtcars |>
   daplot(mpg, wt, qsec)
 ```
 
+## Using other plotting geoms
 
+The default geom used in `daplot` is `ggplot2::geom_line`. However, you can (basically) use any geom you like by specifying the `y1_geom` and `y2_geom` arguments. For example, you can use `ggplot2::geom_point` to create a scatter plot:
+
+```{r, example-points}
+set.seed(123)
+
+data.frame(
+  x = 1:10,
+  y1 = rnorm(10, 10, 2),
+  y2 = rnorm(10, 100, 20)
+) |> 
+  daplot(x, y1, y2, y1_geom = ggplot2::geom_point)
+```
 
