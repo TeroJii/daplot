@@ -16,6 +16,7 @@ Imports:
     dplyr,
     ggplot2,
     glue,
-    rlang
+    rlang,
+    withr
 Depends: 
     R (>= 4.1)
