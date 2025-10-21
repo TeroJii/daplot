@@ -34,8 +34,12 @@ library(ggplot2)
 
 mtcars |> 
   ggplot(aes(x = mpg)) +
-  geom_line(aes(y = wt), color = "blue") +
-  geom_line(aes(y = qsec), color = "red")
+  geom_line(aes(y = wt)) +
+  geom_line(aes(y = qsec)) +
+  scale_y_continuous(
+    name = "wt",
+    sec.axis = sec_axis(~ ., name = "qsec")
+  )
 ```
 
 <img src="man/figures/README-ggplot-example-1.png" width="100%" />
