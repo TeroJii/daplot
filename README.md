@@ -44,11 +44,19 @@ mtcars |>
 
 <img src="man/figures/README-ggplot-example-1.png" width="100%" />
 
+This produces an elegant visualization. However, in some cases we might
+want to compare two variables with different scales more easily. This
+requires scaling of one of the variables to fit the scale of the other
+variable. This is possible with ggplot2, but it requires some additional
+steps and calculations. This is where the `daplot` function comes in
+handy. It provides a simplified interface for creating dual-axis plots
+without the need for manual scaling.
+
 ``` r
 library(daplot)
 
 mtcars |> 
-  daplot(mpg, wt, qsec, y1_label = "test label")
+  daplot(mpg, wt, qsec)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
