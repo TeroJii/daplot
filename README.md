@@ -23,9 +23,22 @@ You can install the development version of daplot from
 pak::pak("TeroJii/daplot")
 ```
 
-## Example
+## Motivation
 
-This is a basic example which shows you how to solve a common problem:
+The package [ggplot2](https://ggplot2.tidyverse.org/) provides an
+incredibly rich and extensive functionality for creating a variety of
+plots. Let’s take the following visualization as an example:
+
+``` r
+library(ggplot2)
+
+mtcars |> 
+  ggplot(aes(x = mpg)) +
+  geom_line(aes(y = wt), color = "blue") +
+  geom_line(aes(y = qsec), color = "red")
+```
+
+<img src="man/figures/README-ggplot-example-1.png" width="100%" />
 
 ``` r
 library(daplot)
