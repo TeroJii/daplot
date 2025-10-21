@@ -6,9 +6,9 @@
 \usage{
 daplot(
   dat,
-  x_val,
-  y1_val,
-  y2_val,
+  x_col,
+  y1,
+  y2,
   y1_label = NULL,
   y2_label = NULL,
   y1_geom = ggplot2::geom_line,
@@ -20,16 +20,16 @@ daplot(
 \arguments{
 \item{dat}{input data frame}
 
-\item{x_val}{a column name in dat for x axis.}
+\item{x_col}{a column name in dat for x axis.}
 
-\item{y1_val}{a column name in dat for y1 axis.}
+\item{y1}{a column name in dat for y1 axis.}
 
-\item{y2_val}{a column name in dat for y2 axis.}
+\item{y2}{a column name in dat for y2 axis.}
 
-\item{y1_label}{an optional label for y1 axis. The column name for y1_val is
+\item{y1_label}{an optional label for y1 axis. The column name for y1 is
 used if not provided.}
 
-\item{y2_label}{an optional label for y2 axis. The column name for y2_val is
+\item{y2_label}{an optional label for y2 axis. The column name for y2 is
 used if not provided.}
 
 \item{y1_geom}{a ggplot2 geom function for y1 axis. Default is ggplot2::geom_line.}
