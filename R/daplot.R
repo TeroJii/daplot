@@ -11,12 +11,16 @@
 #' used if not provided.
 #' @param y2_label an optional label for y2 axis. The column name for y2_val is
 #' used if not provided.
+#' @param y1_geom a ggplot2 geom function for y1 axis. Default is ggplot2::geom_line.
+#' @param y2_geom a ggplot2 geom function for y2 axis. Default is NULL, which uses the same geom as y1_geom.
+#' @param silent logical, if TRUE suppresses warnings during plot creation. Default is TRUE.
+#' @param ... additional arguments passed to the geom functions.
 #' @returns returns a ggplot object
 #' @export
 #'
 #' @examples
 #' mtcars |> daplot(mpg, wt, qsec)
-daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL, y1_geom = ggplot2::geom_line, y2_geom = NULL, ...) {
+daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL, y1_geom = ggplot2::geom_line, y2_geom = NULL, silent = TRUE, ...) {
   stopifnot(is.data.frame(dat))
   xq <- rlang::enquo(x_val)
   y1q <- rlang::enquo(y1_val)
@@ -35,6 +39,12 @@ daplot <- function(dat, x_val, y1_val, y2_val, y1_label = NULL, y2_label = NULL,
     y2_geom <- y1_geom
   }
 
+  # silence warnings if needed
+  if(silent){
+    withr::local_options(list(
+      warn=-1
+    ))
+  }
 
   # get the minimum and maximum of y1 and y2
   y1_min <- min(dat[[rlang::as_name(rlang::enquo(y1_val))]], na.rm = TRUE)
