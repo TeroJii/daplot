@@ -20,3 +20,4 @@ Imports:
     withr
 Depends: 
     R (>= 4.1)
+URL: https://terojii.github.io/daplot/
