@@ -93,28 +93,6 @@ same geom as `y1_geom` if not provided.
 We can also use `daplot` to combine different plot geoms for the two
 variables.
 
-``` r
-
-data.frame(
-  year = 2000:2010,
-  sales = c(100, 120, 150, 130, 170, 160, 180, 200, 220, 210, 230),
-  profit = c(10, 15, 20, 18, 25, 22, 30, 35, 40, 38, 45)
-) |> 
-  daplot(
-    year, 
-    sales, 
-    profit, 
-    y1_geom = ggplot2::geom_col, 
-    y2_geom = ggplot2::geom_line, 
-    y1_label = "Sales (1000 €)", 
-    y2_label = "Profit (1000 €)"
-  ) +
-  ggplot2::scale_x_continuous(breaks = 2000:2010) +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-```
-
-<img src="man/figures/README-bar-plot-1.png" width="100%" />
-
 ## Responsible use of dual-axis plots
 
 Dual-axis plots can be useful for comparing two variables with different

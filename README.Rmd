@@ -81,6 +81,7 @@ Specifying `y2_geom` is actually not needed here, as it defaults to the same geo
 We can also use `daplot` to combine different plot geoms for the two variables.
 
 ```{r, bar-plot}
+#| include: false
 
 data.frame(
   year = 2000:2010,
