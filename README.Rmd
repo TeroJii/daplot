@@ -95,7 +95,9 @@ data.frame(
     y2_geom = ggplot2::geom_line, 
     y1_label = "Sales (1000 €)", 
     y2_label = "Profit (1000 €)"
-  )
+  ) +
+  ggplot2::scale_x_continuous(breaks = 2000:2010) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
 
 ```
 
